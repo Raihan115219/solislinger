@@ -27,13 +27,16 @@ export function Hud() {
 function AudioToggle() {
   const state = useStore(audioStore, 'off');
   const on = state !== 'off';
+  const playing = state === 'on' || state === 'starting';
+  // While pending (browser waiting for a first interaction) a tap here starts the sound.
+  const label = playing ? 'Mute saloon ambience' : 'Play saloon ambience';
   return (
     <button
       type="button"
-      className={`sound${on ? ' is-on' : ''}${state === 'starting' ? ' is-starting' : ''}`}
-      aria-pressed={on}
-      aria-label={on ? 'Turn saloon ambience off' : 'Turn saloon ambience on'}
-      title={on ? 'Sound on' : 'Sound off'}
+      className={`sound${on ? ' is-on' : ''}${state === 'pending' ? ' is-pending' : ''}${state === 'starting' ? ' is-starting' : ''}`}
+      aria-pressed={playing}
+      aria-label={label}
+      title={label}
       onClick={toggleAmbient}
     >
       <svg viewBox="0 0 24 24" aria-hidden>

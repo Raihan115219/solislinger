@@ -150,6 +150,10 @@ button {
   cursor: progress;
 }
 
+.sound.is-pending {
+  animation: breathe 1.6s ease-in-out infinite;
+}
+
 .sound__wave {
   animation: wave 1.8s ease-in-out infinite;
 }

@@ -2,6 +2,7 @@
 
 import { Component, useCallback, useEffect, useState, type ReactNode } from 'react';
 import dynamic from 'next/dynamic';
+import { requestAutoplay } from '@/lib/ambientAudio';
 import { ErrorPanel, Hud, LoadingScreen, Toast, WelcomePlaque } from './ui/Overlays';
 
 const SaloonCanvas = dynamic(() => import('./scene/SaloonCanvas'), { ssr: false });
@@ -42,6 +43,10 @@ export default function Experience() {
   }, []);
 
   const failed = scene === 'unsupported' || scene === 'failed';
+
+  useEffect(() => {
+    if (ready || failed) requestAutoplay();
+  }, [ready, failed]);
 
   return (
     <main className="shell">
