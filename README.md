@@ -6,7 +6,7 @@ Single-page interactive 3D proof of concept for client review (Milestone 2). Sco
 - Phantom wallet connect / disconnect on Solana **Devnet**, truncated address in the HUD (no transactions)
 - Rigged host avatar with idle loop; she turns to look at whichever hotspot is active
 - Four hover hotspots (Card Rooms, Slot Machines, Faction War Map, Shoot Your Shot Lounge) with glow + floating label. Hover-only, nothing navigates. On touch screens a tap reveals the hotspot; tapping elsewhere clears it.
-- Ambient saloon audio toggle in the HUD (off by default; starts on tap, fades in/out, pauses when the tab is hidden)
+- Ambient saloon audio, on by default: it autoplays when the browser allows, otherwise starts on the visitor's first tap/click/key press (browser autoplay rules). The HUD button mutes it, and a mute is remembered per device. Fades in/out and pauses when the tab is hidden.
 
 ## Run
 
