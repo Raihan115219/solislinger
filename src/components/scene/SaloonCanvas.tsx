@@ -6,10 +6,9 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { Environment, Lightformer } from '@react-three/drei';
 import { CAMERA } from '@/config/scene';
 import { HOTSPOT_BY_ID } from '@/config/hotspots';
-import { hotspotStore } from '@/lib/hotspotStore';
 import { SaloonEnvironment } from './SaloonEnvironment';
 import { BarArea, BulletinBoard, CardTables, SlotCabinets } from './SaloonProps';
-import { Hotspot } from './Hotspot';
+import { Hotspot, TouchTapClear } from './Hotspot';
 import { HotspotLight } from './HotspotLight';
 import { HostAvatar } from './HostAvatar';
 import { CameraRig, INTRO_START } from './CameraRig';
@@ -80,8 +79,8 @@ export default function SaloonCanvas({ onReady }: { onReady: () => void }) {
       onCreated={({ gl }) => {
         gl.toneMappingExposure = 1.1;
       }}
-      onPointerMissed={() => hotspotStore.set(null)}
     >
+      <TouchTapClear />
       <color attach="background" args={['#0b0705']} />
       <fog attach="fog" args={['#0f0906', 9, 20]} />
       <Suspense fallback={null}>

@@ -34,6 +34,7 @@ body {
 button {
   font: inherit;
   color: inherit;
+  touch-action: manipulation;
 }
 
 /* ───────── Letterboxed 9:16 stage ───────── */
@@ -58,6 +59,9 @@ button {
   background: var(--ink);
   container-type: size;
   font-size: clamp(11px, 3.2cqw, 17px);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
   box-shadow:
     0 0 0 1px rgba(208, 165, 79, 0.16),
     0 30px 120px rgba(0, 0, 0, 0.85);
@@ -97,6 +101,67 @@ button {
   justify-content: space-between;
   gap: 1em;
   padding: max(4cqw, env(safe-area-inset-top)) 4.5cqw 0;
+}
+
+.hud__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.sound {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.5em;
+  height: 2.5em;
+  padding: 0;
+  cursor: pointer;
+  color: var(--parchment-dim);
+  border: 1px solid rgba(208, 165, 79, 0.5);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, rgba(60, 36, 20, 0.95), rgba(18, 11, 7, 0.95));
+  box-shadow: inset 0 1px 0 rgba(255, 220, 160, 0.1), 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+
+.sound svg {
+  width: 58%;
+  height: 58%;
+}
+
+.sound:hover {
+  color: var(--parchment);
+  border-color: var(--gold-hi);
+}
+
+.sound:focus-visible {
+  outline: 2px solid var(--gold-hi);
+  outline-offset: 2px;
+}
+
+.sound.is-on {
+  color: var(--gold-hi);
+  border-color: var(--gold);
+  box-shadow: inset 0 1px 0 rgba(255, 220, 160, 0.12), 0 0 16px rgba(240, 190, 90, 0.3);
+}
+
+.sound.is-starting {
+  cursor: progress;
+}
+
+.sound__wave {
+  animation: wave 1.8s ease-in-out infinite;
+}
+
+.sound__wave--2 {
+  animation-delay: 0.3s;
+}
+
+@keyframes wave {
+  50% {
+    opacity: 0.35;
+  }
 }
 
 .brand {
@@ -337,6 +402,7 @@ button {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 220, 160, 0.08);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transform: translate(-50%, 16px);
   transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s linear 0.6s;
 }
@@ -344,6 +410,7 @@ button {
 .plaque.is-visible {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translate(-50%, 0);
   transition: opacity 0.7s ease 0.9s, transform 0.7s ease 0.9s, visibility 0s;
 }
@@ -532,6 +599,7 @@ button {
 .loader.is-done {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }
 
 .loader__brand {

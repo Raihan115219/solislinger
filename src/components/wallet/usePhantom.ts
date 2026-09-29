@@ -19,7 +19,10 @@ export function reportWalletError(error: WalletError) {
   else showNotice('Couldn’t connect to Phantom. Please try again.', 'error');
 }
 
-const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+// iPadOS Safari reports a Mac user agent, so also treat touch-capable "Macs" as mobile.
+const isMobile = () =>
+  /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+  (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 
 function openPhantomInstall() {
   if (isMobile()) {

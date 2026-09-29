@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useProgress } from '@react-three/drei';
+import { audioStore, toggleAmbient } from '@/lib/ambientAudio';
 import { useStore } from '@/lib/createStore';
 import { exploredStore } from '@/lib/hotspotStore';
 import { noticeStore } from '@/lib/noticeStore';
@@ -15,8 +16,38 @@ export function Hud() {
         <span className="brand__name">Solslinger</span>
         <span className="brand__sub">The Bloody Raven</span>
       </div>
-      <WalletControl />
+      <div className="hud__actions">
+        <AudioToggle />
+        <WalletControl />
+      </div>
     </header>
+  );
+}
+
+function AudioToggle() {
+  const state = useStore(audioStore, 'off');
+  const on = state !== 'off';
+  return (
+    <button
+      type="button"
+      className={`sound${on ? ' is-on' : ''}${state === 'starting' ? ' is-starting' : ''}`}
+      aria-pressed={on}
+      aria-label={on ? 'Turn saloon ambience off' : 'Turn saloon ambience on'}
+      title={on ? 'Sound on' : 'Sound off'}
+      onClick={toggleAmbient}
+    >
+      <svg viewBox="0 0 24 24" aria-hidden>
+        <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" />
+        {on ? (
+          <g fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <path className="sound__wave sound__wave--1" d="M15.2 9.2a4 4 0 0 1 0 5.6" />
+            <path className="sound__wave sound__wave--2" d="M17.8 6.8a7.4 7.4 0 0 1 0 10.4" />
+          </g>
+        ) : (
+          <path d="M15.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        )}
+      </svg>
+    </button>
   );
 }
 
